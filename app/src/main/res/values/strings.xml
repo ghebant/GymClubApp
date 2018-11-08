@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">GymClubApp</string>
+    <string name="title_activity_login">Sign in</string>
+
+    <!-- Strings related to login -->
+    <string name="hint_username">Username</string>
+    <string name="hint_password">Password</string>
+    <string name="hint_password_check">Enter password again</string>
+    <string name="login_button">Sign in</string>
+    <string name="register_button">Sign up</string>
+    <string name="return_login_button">Return to login</string>
+
+    <string name="error_invalid_email">This email address is invalid</string>
+    <string name="error_invalid_password">This password is too short</string>
+    <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="error_field_required">This field is required</string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email
+        completions."
+    </string>
+</resources>
