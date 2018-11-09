@@ -1,5 +1,6 @@
 package app.gymclubapp.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -27,6 +28,8 @@ public class LoginFragment extends Fragment {
             public void onClick(View v) {
                 //login
                 Log.d("LOGTAG", "login");
+                Intent intent = new Intent(getActivity(), MainScreenActivity.class);
+                startActivity(intent);
             }
         });
 

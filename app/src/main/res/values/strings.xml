@@ -10,6 +10,9 @@
     <string name="register_button">Sign up</string>
     <string name="return_login_button">Return to login</string>
 
+    <string name="title_navigation_training_classes">Training Classes</string>
+    <string name="title_navigation_news">News</string>
+
     <string name="error_invalid_email">This email address is invalid</string>
     <string name="error_invalid_password">This password is too short</string>
     <string name="error_incorrect_password">This password is incorrect</string>
