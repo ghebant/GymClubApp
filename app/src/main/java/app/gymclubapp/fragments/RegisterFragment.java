@@ -11,28 +11,32 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import app.gymclubapp.R;
+import app.gymclubapp.activities.LoginActivity;
 
 public class RegisterFragment extends Fragment {
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View inflatedView = inflater.inflate(R.layout.activity_login, container, false);
+        View view = inflater.inflate(R.layout.activity_register, null);
+        Button registerButton = view.findViewById(R.id.register_button);
+        Button returnLoginButton = view.findViewById(R.id.return_login_button);
 
-        if (inflatedView != null) {
-            Button registerButton = inflatedView.findViewById(R.id.register_button);
-
-            if (registerButton != null) {
-                registerButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Log.d("LOGTAG", "REGISTER");
-                    }
-                });
+        registerButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //login
+                Log.d("LOGTAG", "register");
             }
-        }
+        });
 
-        return inflatedView;
-        //return inflater.inflate(R.layout.activity_register, null);
+        returnLoginButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                LoginActivity.fragmentManager.beginTransaction().replace(R.id.fragment_container, new LoginFragment()).commit();
+            }
+        });
+
+        return view;
     }
 }

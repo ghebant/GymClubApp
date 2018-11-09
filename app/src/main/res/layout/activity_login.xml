@@ -50,11 +50,11 @@
 
     </android.support.design.widget.TextInputLayout>
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center">
+        android:orientation="vertical"
+        android:gravity="center" >
 
         <Button
             android:id="@+id/login_button"
@@ -62,16 +62,19 @@
             android:hint="@string/login_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textSize="16sp"
             android:textColor="@android:color/white"
             android:background="@android:color/darker_gray" />
 
         <Button
-            android:id="@+id/register_button"
+            android:id="@+id/create_account_button"
             android:hint="@string/register_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@android:color/white"
-            android:background="@android:color/darker_gray"/>
-    </LinearLayout>
+            android:textColor="@android:color/darker_gray"
+            android:background="@android:color/transparent"
+            android:layout_alignParentBottom="true"
+            style="?android:attr/borderlessButtonStyle" />
+    </RelativeLayout>
 
 </LinearLayout>

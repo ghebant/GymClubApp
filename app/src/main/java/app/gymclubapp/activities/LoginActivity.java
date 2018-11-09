@@ -3,6 +3,8 @@ package app.gymclubapp.activities;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -19,14 +21,16 @@ public class LoginActivity extends AppCompatActivity {
     private EditText passwordUsername;
     private Button loginButton;
     private Button registerButton;
+    public static FragmentManager fragmentManager;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        fragmentManager = getSupportFragmentManager();
         loadFragment(new LoginFragment());
-        setupButtons();
+        //setupButtons();
     }
 
     private void setupButtons() {
@@ -52,6 +56,21 @@ public class LoginActivity extends AppCompatActivity {
                     Log.d("LOGTAG", "Clicked on register");
                     Fragment fragment = new RegisterFragment();
                     loadFragment(fragment);
+                    registerButton.setText("Return to login");
+                    registerButton.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Fragment fragment = new LoginFragment();
+                            loadFragment(fragment);
+                            loginButton.setText("Sign in");
+                            loginButton.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    Log.d("LOGTAG", "Clicked on login");
+                                }
+                            });
+                        }
+                    });
                 }
             });
         }
@@ -60,12 +79,24 @@ public class LoginActivity extends AppCompatActivity {
     private boolean loadFragment(Fragment fragment) {
         //switching fragment
         if (fragment != null) {
-            getSupportFragmentManager()
-                    .beginTransaction()
-                    .replace(R.id.fragment_container, fragment)
-                    .commit();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.add(R.id.fragment_container, fragment);
+            fragmentTransaction.commit();
             return true;
         }
         return false;
     }
+
+    /*private boolean loadFragment(Fragment fragment) {
+        //switching fragment
+        if (fragment != null) {
+            fragmentManager
+                    .beginTransaction()
+                    .replace(R.id.fragment_container, fragment)
+                    .addToBackStack(null)
+                    .commit();
+            return true;
+        }
+        return false;
+    }*/
 }
