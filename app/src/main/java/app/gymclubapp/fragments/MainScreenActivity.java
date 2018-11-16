@@ -50,6 +50,8 @@ public class MainScreenActivity extends AppCompatActivity {
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.main_screen_navigation);
         navigation.setOnNavigationItemSelectedListener(navigationItemSelectedListener);
+
+        loadFragment(new NewsFragment());
     }
 
     private boolean loadFragment(Fragment fragment) {

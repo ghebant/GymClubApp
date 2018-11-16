@@ -14,6 +14,7 @@ public class RecyclerViewHolders extends RecyclerView.ViewHolder implements View
         itemView.setOnClickListener(this);
         textTitle = (TextView)itemView.findViewById(R.id.textCardView);
     }
+
     @Override
     public void onClick(View view) {
     }

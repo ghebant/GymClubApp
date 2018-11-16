@@ -16,7 +16,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import app.gymclubapp.R;
-import app.gymclubapp.fragments.MainScreenActivity;
 import app.gymclubapp.recyclerViewComponents.RecyclerViewAdapter;
 
 public class NewsFragment extends Fragment {
@@ -39,7 +38,6 @@ public class NewsFragment extends Fragment {
         adapterData = getFirstData();
         handler = new Handler();
         linearLayoutManager = new LinearLayoutManager(getContext());
-        // return the data object
         recyclerView = (RecyclerView) view.findViewById(R.id.news_recycler_view);
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerViewAdapter = new RecyclerViewAdapter(getContext(), adapterData, recyclerView);
@@ -55,7 +53,7 @@ public class NewsFragment extends Fragment {
                         adapterData.remove(adapterData.size() - 1);
                         recyclerViewAdapter.notifyItemRemoved(adapterData.size());
                         for (int i = 0; i < 15; i++) {
-                            adapterData.add("Item" + (adapterData.size() + 1));
+                            adapterData.add("News " + (adapterData.size() + 1));
                             recyclerViewAdapter.notifyItemInserted(adapterData.size());
                         }
                         recyclerViewAdapter.setLoaded();
@@ -68,16 +66,16 @@ public class NewsFragment extends Fragment {
 
     private List<String> getFirstData(){
         List<String> listObject = new ArrayList<String>();
-        listObject.add("one");
-        listObject.add("one");
-        listObject.add("one");
-        listObject.add("one");
-        listObject.add("one");
-        listObject.add("one");
-        listObject.add("one");
-        listObject.add("one");
-        listObject.add("one");
-        listObject.add("one");
+        listObject.add("Firsts news");
+        listObject.add("Firsts news");
+        listObject.add("Firsts news");
+        listObject.add("Firsts news");
+        listObject.add("Firsts news");
+        listObject.add("Firsts news");
+        listObject.add("Firsts news");
+        listObject.add("Firsts news");
+        listObject.add("Firsts news");
+        listObject.add("Firsts news");
         return listObject;
     }
 }
