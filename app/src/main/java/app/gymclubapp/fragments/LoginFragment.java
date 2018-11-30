@@ -26,7 +26,7 @@ public class LoginFragment extends Fragment {
     private EditText passwordEditText;
     private Button loginButton;
     private Button createAccountButton;
-    //private LoginListener loginListener;
+    private LoginListener loginListener;
 
 
     @Nullable
@@ -34,19 +34,20 @@ public class LoginFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_login, null);
 
-        setupItems(view);
+        setLoginButtonClickListener(view);
 
         return view;
     }
 
-    public void setupItems(View view) {
+    private void setLoginButtonClickListener(View view) {
         loginButton = view.findViewById(R.id.login_button);
         createAccountButton = view.findViewById(R.id.create_account_button);
         usernameEditText = view.findViewById(R.id.login_username);
+        usernameEditText.setText("user1");
         passwordEditText = view.findViewById(R.id.login_password);
-    }
+        passwordEditText.setText("user1");
 
-    public void setLoginButtonClickListener(final LoginListener loginListener) {
+
         if (loginButton != null) {
             loginButton.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -68,6 +69,10 @@ public class LoginFragment extends Fragment {
         } else {
             Log.d("LOGTAG", "CreateAccountButton is null");
         }
+    }
+
+    public void setLoginListener(LoginListener loginListener) {
+        this.loginListener = loginListener;
     }
 
     public EditText getPasswordEditText() {

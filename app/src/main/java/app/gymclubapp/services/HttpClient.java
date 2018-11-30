@@ -1,5 +1,7 @@
 package app.gymclubapp.services;
 
+import android.util.Log;
+
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -22,6 +24,8 @@ public class HttpClient {
                     .client(okHttpClient)
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
+
+            Log.d("LOGTAG", "Check ip current registered is 192.168.43.33");
         }
         return retrofit;
     }

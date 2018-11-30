@@ -3,6 +3,7 @@ package app.gymclubapp.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -12,6 +13,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -21,7 +23,10 @@ import app.gymclubapp.fragments.MainScreenActivity;
 import app.gymclubapp.fragments.RegisterFragment;
 import app.gymclubapp.services.HttpClient;
 import app.gymclubapp.services.HttpService;
+import app.gymclubapp.services.models.RetroResponse;
 import app.gymclubapp.services.models.User;
+import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -46,7 +51,7 @@ public class LoginActivity extends AppCompatActivity {
         httpService = retrofit.create(HttpService.class);
 
         loadFragment(loginFragment);
-        loginFragment.setLoginButtonClickListener(new LoginFragment.LoginListener() {
+        loginFragment.setLoginListener(new LoginFragment.LoginListener() {
             @Override
             public void onLoginButtonClicked() {
                 tryLogin();
@@ -70,24 +75,26 @@ public class LoginActivity extends AppCompatActivity {
             final String userStr = loginFragment.getUsernameEditText().getText().toString();
             final String pwdStr = loginFragment.getPasswordEditText().getText().toString();
 
-            Call<List<User>> call = httpService.getUsers();
-            call.enqueue(new Callback<List<User>>() {
+            Call<RetroResponse> call = httpService.login2(new User(userStr, pwdStr));
+            call.enqueue(new Callback<RetroResponse>() {
                 @Override
-                public void onResponse(Call<List<User>> call, Response<List<User>> response) {
-                    Log.d("LOGTAG", "Response ok");
-                    for (User user : response.body()) {
-                        if (userStr == user.getUsername() && pwdStr == user.getPassword()) {
-                            //login
-                            Log.d("LOGTAG", "login");
-                            Intent intent = new Intent(getApplicationContext(), MainScreenActivity.class);
-                            startActivity(intent);
-                        }
+                public void onResponse(Call<RetroResponse> call, Response<RetroResponse> response) {
+                    Log.d("LOGTAG", response.body().getSuccess());
+                    if (response.body().getSuccess().equals("true")) {
+                        Intent intent = new Intent(getApplicationContext(), MainScreenActivity.class);
+                        startActivity(intent);
+                    } else {
+                        Log.d("LOGTAG", "Wrong password");
+                        EditText edUsername = findViewById(R.id.login_username);
+                        EditText edPassword = findViewById(R.id.login_password);
+                        edUsername.setError("Wrong combination");
+                        edPassword.setError("");
                     }
                 }
 
                 @Override
-                public void onFailure(Call<List<User>> call, Throwable t) {
-                    Log.d("LOGTAG", "Response fail");
+                public void onFailure(Call<RetroResponse> call, Throwable t) {
+                    Log.d("LOGTAG", "Fail: " + t);
                 }
             });
         }
