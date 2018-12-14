@@ -1,10 +1,8 @@
 package app.gymclubapp.videoPlayer;
 
-import android.app.Activity;
 import android.content.Context;
 import android.net.Uri;
 import android.util.Log;
-import android.view.View;
 
 import com.google.android.exoplayer2.DefaultLoadControl;
 import com.google.android.exoplayer2.DefaultRenderersFactory;
@@ -16,7 +14,6 @@ import com.google.android.exoplayer2.trackselection.DefaultTrackSelector;
 import com.google.android.exoplayer2.ui.PlayerView;
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory;
 
-import app.gymclubapp.R;
 
 public class VideoPlayerManager {
 
@@ -30,17 +27,17 @@ public class VideoPlayerManager {
 
     private Context context;
 
-    public VideoPlayerManager(Context ctx) {
+    public VideoPlayerManager(Context ctx, PlayerView pv) {
         context = ctx;
+        playerView = pv;
     }
 
-    public void initializePlayer(View view) {
-        playerView = view.findViewById(R.id.player_view);
-
+    public void initializePlayer() {
         player = ExoPlayerFactory.newSimpleInstance(
                 new DefaultRenderersFactory(context),
                 new DefaultTrackSelector(),
                 new DefaultLoadControl());
+
         if (player != null) {
 
             playerView.setPlayer(player);
@@ -54,21 +51,6 @@ public class VideoPlayerManager {
         } else {
             Log.d("LOGTAG", "Player is null");
         }
-
-        /*playerView = context.getApplicationContext()
-        if (player == null) {
-            player = ExoPlayerFactory.newSimpleInstance(
-                    new DefaultRenderersFactory(context),
-                    new DefaultTrackSelector(),
-                    new DefaultLoadControl());
-
-            if (playerView != null)
-                playerView.setPlayer(player);
-            player.setPlayWhenReady(playWhenReady);
-            player.seekTo(currentWindow, playbackPosition);
-        }
-        MediaSource mediaSource = buildMediaSource(Uri.parse(getString(R.string.media_url_mp4)));
-        player.prepare(mediaSource, true, false);*/
     }
 
     public MediaSource buildMediaSource(Uri uri) {
@@ -76,21 +58,6 @@ public class VideoPlayerManager {
         return new ExtractorMediaSource.Factory(
                 new DefaultHttpDataSourceFactory("GymClubApp")).
                 createMediaSource(uri);
-
-        /*String userAgent = "exoplayer-codelab";
-
-        if (uri.getLastPathSegment().contains("mp3") || uri.getLastPathSegment().contains("mp4")) {
-            return ExtractorMediaSource.Factory(DefaultHttpDataSourceFactory(userAgent))
-                    .createMediaSource(uri);
-        } else if (uri.getLastPathSegment().contains("m3u8")) {
-            return HlsMediaSource.Factory(DefaultHttpDataSourceFactory(userAgent))
-                    .createMediaSource(uri);
-        } else {
-            String dashChunkSourceFactory = DefaultDashChunkSource.Factory(
-                    DefaultHttpDataSourceFactory("ua", BANDWIDTH_METER));
-            int manifestDataSourceFactory = DefaultHttpDataSourceFactory(userAgent);
-            return DashMediaSource.Factory(dashChunkSourceFactory, manifestDataSourceFactory).createMediaSource(uri);
-        }*/
     }
 
     public void releasePlayer() {
@@ -100,6 +67,7 @@ public class VideoPlayerManager {
             playWhenReady = player.getPlayWhenReady();
             player.release();
             player = null;
+            Log.d("LOGTAG", "Player released");
         }
     }
 }

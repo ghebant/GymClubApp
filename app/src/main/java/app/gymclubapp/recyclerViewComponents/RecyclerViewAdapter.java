@@ -46,11 +46,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewHolder
     }
 
     @Override
-    public int getItemViewType(int position) {
-        return itemList.get(position) != null ? 1 : 0;
-    }
-
-    @Override
     public RecyclerViewHolders onCreateViewHolder(ViewGroup parent, int viewType) {
         RecyclerViewHolders viewHolder = null;
         if(viewType == 1){
@@ -62,21 +57,33 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewHolder
         }
         return viewHolder;
     }
+
+    @Override
+    public int getItemViewType(int position) {
+        return itemList.get(position) != null ? 1 : 0;
+    }
+
     @Override
     public void onBindViewHolder(RecyclerViewHolders holder, int position) {
         if(holder instanceof RecyclerViewHolders){
-            ((RecyclerViewHolders)holder).textTitle.setText(itemList.get(position));
+            RecyclerViewHolders recyclerViewHolders = (RecyclerViewHolders) holder;
+            recyclerViewHolders.textTitle.setText(itemList.get(position));
+            recyclerViewHolders.imageView.setImageResource(R.drawable.landscape_photo);
+            //recyclerViewHolders.
         }else{
             ((ProgressViewHolder)holder).progressBar.setIndeterminate(true);
         }
     }
+
     public void setLoad(){
         loading = false;
     }
+
     @Override
     public int getItemCount() {
         return this.itemList.size();
     }
+
     public void setOnLoadMoreListener(OnLoadMoreListener onLoadMoreListener){
         this.onLoadMoreListener = onLoadMoreListener;
     }

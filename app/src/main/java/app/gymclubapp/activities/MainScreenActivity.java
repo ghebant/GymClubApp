@@ -1,4 +1,4 @@
-package app.gymclubapp.fragments;
+package app.gymclubapp.activities;
 
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import com.google.android.exoplayer2.util.Util;
 
 import app.gymclubapp.R;
+import app.gymclubapp.fragments.VideoPlayerFragment;
 import app.gymclubapp.fragments.bottomNavigationFragments.NewsFragment;
 import app.gymclubapp.fragments.bottomNavigationFragments.TrainingClassesFragment;
 import app.gymclubapp.videoPlayer.VideoPlayerManager;
@@ -20,6 +21,8 @@ import app.gymclubapp.videoPlayer.VideoPlayerManager;
 public class MainScreenActivity extends AppCompatActivity {
 
     public static FragmentManager fragmentManager;
+
+    Fragment fragment = null;
 
     private BottomNavigationView.OnNavigationItemSelectedListener navigationItemSelectedListener;
 
@@ -34,7 +37,6 @@ public class MainScreenActivity extends AppCompatActivity {
 
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                Fragment fragment = null;
 
                 switch (item.getItemId()) {
                     case R.id.navigation_news:
@@ -69,37 +71,5 @@ public class MainScreenActivity extends AppCompatActivity {
             return true;
         }
         return false;
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        if (Util.SDK_INT > 23) {
-            //videoPlayerManager.initializePlayer();
-        }
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        if (Util.SDK_INT > 23) {
-            //videoPlayerManager.initializePlayer();
-        }
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        if (Util.SDK_INT <= 23) {
-            //videoPlayerManager.releasePlayer();
-        }
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        if (Util.SDK_INT > 23) {
-            //videoPlayerManager.releasePlayer();
-        }
     }
 }

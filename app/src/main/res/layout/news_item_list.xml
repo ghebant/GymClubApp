@@ -9,9 +9,9 @@
     card_view:cardCornerRadius="4dp">
 
     <ImageView
+        android:id="@+id/imageViewItemList"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:src="@drawable/landscape_photo"
         android:scaleType="centerCrop"/>
 
     <TextView

@@ -5,7 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_screen_container"
-    tools:context=".fragments.MainScreenActivity">
+    tools:context=".activities.MainScreenActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
