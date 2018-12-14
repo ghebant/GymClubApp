@@ -11,4 +11,9 @@
         android:icon="@drawable/ic_date_black_24dp"
         android:title="@string/title_navigation_training_classes" />
 
+    <item
+        android:id="@+id/navigation_video_player"
+        android:icon="@drawable/ic_ondemand_video_black_24dp"
+        android:title="@string/title_navigation_video_player" />
+
 </menu>

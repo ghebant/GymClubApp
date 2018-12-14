@@ -2,6 +2,7 @@ package app.gymclubapp.fragments;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -20,6 +21,7 @@ public class LoginFragment extends Fragment {
     // Listener
     public interface LoginListener {
         void onLoginButtonClicked();
+        void onRegisterButtonClicked();
     }
 
     private EditText usernameEditText;
@@ -32,6 +34,7 @@ public class LoginFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        Log.d("LOGTAG", "On create");
         View view = inflater.inflate(R.layout.activity_login, null);
 
         setLoginButtonClickListener(view);
@@ -45,14 +48,17 @@ public class LoginFragment extends Fragment {
         usernameEditText = view.findViewById(R.id.login_username);
         usernameEditText.setText("user1");
         passwordEditText = view.findViewById(R.id.login_password);
-        passwordEditText.setText("user1");
+        passwordEditText.setText("pass1");
 
 
         if (loginButton != null) {
             loginButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    loginListener.onLoginButtonClicked();
+                    if (loginListener != null)
+                        loginListener.onLoginButtonClicked();
+                    else
+                        Log.d("LOGTAG", "Login listener is null because the fragment as reset");
                 }
             });
         } else {
@@ -63,6 +69,13 @@ public class LoginFragment extends Fragment {
             createAccountButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    RegisterFragment registerFragment = new RegisterFragment();
+                    Bundle bundle = new Bundle();
+                    bundle.putParcelable("listener", (Parcelable) loginListener);
+                    registerFragment.setArguments(bundle);
+
+                    //GET
+                    //Listeneer litener = (Listener) getIntent().getSerializableExtra("listener");
                     LoginActivity.fragmentManager.beginTransaction().replace(R.id.fragment_container, new RegisterFragment()).commit();
                 }
             });

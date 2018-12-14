@@ -50,13 +50,22 @@ public class LoginActivity extends AppCompatActivity {
         retrofit = HttpClient.getClient();
         httpService = retrofit.create(HttpService.class);
 
-        loadFragment(loginFragment);
         loginFragment.setLoginListener(new LoginFragment.LoginListener() {
             @Override
             public void onLoginButtonClicked() {
                 tryLogin();
             }
+
+            @Override
+            public void onRegisterButtonClicked() {
+
+            }
         });
+        //CHECK SI CA CALL ONCREATE QUAND ON CHANGE DE FRAGMENT
+        //CHECK SI CA CALL ONCREATE QUAND ON CHANGE DE FRAGMENT
+        //CHECK SI CA CALL ONCREATE QUAND ON CHANGE DE FRAGMENT
+        //CHECK SI CA CALL ONCREATE QUAND ON CHANGE DE FRAGMENT
+        loadFragment(loginFragment);
     }
 
     private boolean loadFragment(Fragment fragment) {

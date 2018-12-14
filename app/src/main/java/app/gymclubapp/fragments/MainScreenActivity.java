@@ -10,10 +10,12 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 
+import com.google.android.exoplayer2.util.Util;
+
 import app.gymclubapp.R;
-import app.gymclubapp.activities.LoginActivity;
 import app.gymclubapp.fragments.bottomNavigationFragments.NewsFragment;
 import app.gymclubapp.fragments.bottomNavigationFragments.TrainingClassesFragment;
+import app.gymclubapp.videoPlayer.VideoPlayerManager;
 
 public class MainScreenActivity extends AppCompatActivity {
 
@@ -43,6 +45,10 @@ public class MainScreenActivity extends AppCompatActivity {
                         fragment = new TrainingClassesFragment();
                         Log.d("TAG", "TRAINING");
                         return loadFragment(fragment);
+                    case R.id.navigation_video_player:
+                        fragment = new VideoPlayerFragment();
+                        Log.d("TAG", "VIDEO PLAYER");
+                        return loadFragment(fragment);
                 }
                 return false;
             }
@@ -63,5 +69,37 @@ public class MainScreenActivity extends AppCompatActivity {
             return true;
         }
         return false;
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if (Util.SDK_INT > 23) {
+            //videoPlayerManager.initializePlayer();
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (Util.SDK_INT > 23) {
+            //videoPlayerManager.initializePlayer();
+        }
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        if (Util.SDK_INT <= 23) {
+            //videoPlayerManager.releasePlayer();
+        }
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (Util.SDK_INT > 23) {
+            //videoPlayerManager.releasePlayer();
+        }
     }
 }

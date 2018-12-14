@@ -20,7 +20,7 @@ public class HttpClient {
             OkHttpClient okHttpClient = new OkHttpClient.Builder()
                     .build();
             retrofit = new Retrofit.Builder()
-                    .baseUrl("http://192.168.43.33:3000/")
+                    .baseUrl("http://192.168.43.33:5000/")
                     .client(okHttpClient)
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
